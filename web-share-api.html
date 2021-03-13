@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Web Share API</title>
+    <style>
+        #content , #error {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="content">Paylaşıldı.</div>
+    <div id="error">Paylaşılma iptal edildi. </div>
+
+    <button id="share-btn">Paylaş</button>
+
+    <script>
+        const button = document.getElementById('share-btn')
+        const content = document.getElementById('content')
+        const error = document.getElementById('error')
+
+        button.addEventListener('click', e => {
+            e.preventDefault()
+            if (navigator.share) {
+                const shareData = {
+                    title: 'Github Profile',
+                    text: 'Github profile welcome',
+                    url: 'https://github.com/fulutas'
+                }
+                navigator.share(shareData)
+                    .then(() => {
+                        content.style.display = 'block'
+                    }).catch((err) => {
+                        error.style.display = 'block'
+                    });
+            }
+        })
+    </script>
+</body>
+
+</html>
